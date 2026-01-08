@@ -1,212 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Black Talon Watch — AI‑Driven Website Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/"></script>
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black Talon Watch — AI-Driven Website Intelligence</title>
 
-<link rel="icon" type="image/png" href="Logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="Logo.png">
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
+
 <body>
 
 <header>
-<nav id="mobileNav">
-  <a href="#features">Features</a>
-  <a href="#pricing">Pricing</a>
-  <a href="#contact">Contact</a>
-</nav>
-  
+  <nav id="mobileNav">
+    <a href="#intelligence">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
 </header>
 
-<!-- Hero -->
 <section class="hero">
-  <div class="hero-logo"><img src="Logo.png" alt="Black Talon Watch Logo"></div>
-  <div class="badge">AI‑Driven Website Intelligence</div>
-  <h1>Know your website<br>before it breaks.</h1>
-  <p>Black Talon Watch continuously monitors your website, detects anomalies, and alerts you before users notice issues.</p>
-  <a class="cta" onclick="openForm()">Request Access</a>
-  <div class="trust">Built for founders, agencies and mission‑critical websites.</div>
-</section>
-
-<!-- Metrics -->
-<section class="block" style="padding-top:40px;padding-bottom:40px;">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;text-align:center;">
-    <div><div style="font-size:2.8rem;font-weight:900;">99.99%</div><div class="muted">Detection accuracy</div></div>
-    <div><div style="font-size:2.8rem;font-weight:900;">&lt;60s</div><div class="muted">Average alert time</div></div>
-    <div><div style="font-size:2.8rem;font-weight:900;">24/7</div><div class="muted">Autonomous monitoring</div></div>
-    <div><div style="font-size:2.8rem;font-weight:900;">Zero</div><div class="muted">Noise alerts</div></div>
+  <div class="hero-logo">
+    <img src="Logo.png" alt="Black Talon Watch">
   </div>
+
+  <div class="badge">AI-Driven Website Intelligence</div>
+
+  <h1>Know your website<br>before it breaks.</h1>
+  <p>
+    Black Talon Watch continuously monitors your website,
+    detects anomalies, and alerts you before users notice issues.
+  </p>
+
+  <a class="cta" onclick="openForm()">Request Access</a>
+  <div class="trust">Built for founders, agencies and mission-critical websites.</div>
 </section>
 
-<!-- Intelligence -->
 <section class="block" id="intelligence">
   <h2>Beyond uptime monitoring</h2>
-  <p class="intro">Traditional uptime tools react after failure. Black Talon Watch uses behavioral analysis and anomaly detection to identify weak signals, silent failures and degradation patterns before downtime becomes visible.</p>
+  <p class="intro">
+    Traditional uptime tools react after failure.
+    We detect weak signals before downtime becomes visible.
+  </p>
+
   <div class="grid">
-    <div class="card"><h3>Behavioral Baselines</h3><p>Your site’s normal response patterns are learned and continuously refined by AI.</p></div>
-    <div class="card"><h3>Anomaly Detection</h3><p>Subtle deviations in latency, response codes or availability are flagged instantly.</p></div>
-    <div class="card"><h3>Silent Failure Detection</h3><p>Catch partial outages, broken pages and degraded endpoints before users complain.</p></div>
-    <div class="card"><h3>Signal‑Only Alerts</h3><p>No dashboards. No noise. Only alerts that matter when action is required.</p></div>
+    <div class="card"><h3>Behavioral Baselines</h3><p>AI learns normal behavior.</p></div>
+    <div class="card"><h3>Anomaly Detection</h3><p>Subtle deviations detected instantly.</p></div>
+    <div class="card"><h3>Silent Failures</h3><p>Catch partial outages.</p></div>
+    <div class="card"><h3>Signal-Only Alerts</h3><p>No noise. Only action.</p></div>
   </div>
 </section>
 
-<!-- How it works -->
-<section class="block" id="how">
-  <h2>How Black Talon Watch works</h2>
-  <p class="intro">Designed to disappear into your workflow while remaining relentlessly vigilant.</p>
-  <div class="timeline">
-    <div class="step"><strong>1. Connect</strong>Submit your website URL and alert email.</div>
-    <div class="step"><strong>2. Observe</strong>Our system establishes behavioral baselines within hours.</div>
-    <div class="step"><strong>3. Detect</strong>AI identifies anomalies, degradations and outages.</div>
-    <div class="step"><strong>4. Alert</strong>You receive concise, actionable notifications — instantly.</div>
-  </div>
-</section>
-
-<!-- Pricing -->
 <section class="block" id="pricing">
   <div class="pricing">
     <h2>Simple access. Serious protection.</h2>
     <div class="price">€9 <span>/ month</span></div>
-    <p style="color:var(--muted);margin-bottom:20px;font-size:1rem;">
-      Start with a <strong>7-day free trial</strong>, then €9/month. Normal price €19.95/month.
-    </p>
+    <p class="muted">7-day free trial · Normally €19.95</p>
+
     <ul>
-      <li>24/7 AI‑driven monitoring</li>
-      <li>Anomaly & silent failure detection</li>
-      <li>Instant email alerts</li>
-      <li>Flexible check intervals</li>
+      <li>24/7 AI monitoring</li>
+      <li>Anomaly detection</li>
+      <li>Email alerts</li>
       <li>Cancel anytime</li>
     </ul>
+
     <a class="cta" onclick="openForm()">Activate Monitoring</a>
   </div>
 </section>
 
-<!-- Contact -->
 <section class="block" id="contact">
   <div class="contact-section">
-    <h2>Contact Us</h2>
-    <p style="color:var(--muted); text-align:center; margin-bottom:32px;">
-      Have questions or need support? Send us a message and we’ll get back to you promptly.
-    </p>
+    <h2>Contact</h2>
+
     <form id="contactForm">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
+      <input name="name" placeholder="Your Name" required>
+      <input name="email" type="email" placeholder="Your Email" required>
       <textarea name="message" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
+
     <div id="contactSuccess" class="success-message"></div>
   </div>
 </section>
 
 <footer>
-  © 2026 Black Talon Watch. AI‑Driven Website Intelligence.
+  © 2026 Black Talon Watch
 </footer>
 
-<!-- Modal Form -->
+<!-- Modal -->
 <div id="formModal" class="modal">
   <div class="modal-content">
     <h2>Start Monitoring</h2>
-    <p>Submit your details to activate AI-driven monitoring and start your 7-day free trial.</p>
+
     <form id="monitoringForm">
-      <input required name="website" placeholder="Website URL">
-      <input required type="email" name="email" placeholder="Alert Email">
+      <input name="website" placeholder="Website URL" required>
+      <input name="email" type="email" placeholder="Alert Email" required>
       <select name="interval">
-        <option>Check every 5 minutes (Recommended)</option>
-        <option>Check every 10 minutes</option>
-        <option>Check every 30 minutes</option>
+        <option>Every 5 minutes</option>
+        <option>Every 10 minutes</option>
+        <option>Every 30 minutes</option>
       </select>
-      <button type="submit" class="cta">Start 7-Day Free Trial</button>
+
+      <button class="cta">Start 7-Day Free Trial</button>
     </form>
-    <p onclick="closeForm()" style="margin-top:20px;text-align:center;cursor:pointer;color:var(--muted)">Close</p>
+
+    <p onclick="closeForm()" class="close">Close</p>
     <div id="monitoringSuccess" class="success-message"></div>
   </div>
 </div>
 
-<script>
-emailjs.init("aZ4T3xUnA92LWdsv2"); // Public key
-
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('reveal');
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:0.15});
-
-document.querySelectorAll('section.block').forEach(section => observer.observe(section));
-
-function openForm(){document.getElementById('formModal').style.display='flex';}
-function closeForm(){document.getElementById('formModal').style.display='none';}
-
-// Contact Form
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  emailjs.sendForm('service_oymlaue','template_1875ef6',this)
-  .then(response=>{
-    document.getElementById('contactSuccess').innerText="Message sent successfully!";
-    this.reset();
-  }).catch(err=>{
-    document.getElementById('contactSuccess').innerText="Oops, something went wrong.";
-  });
-});
-
-// Stripe
-const stripe = Stripe("pk_live_REPLACE_WITH_YOUR_KEY"); // je eigen key invullen
-
-ddocument.getElementById('monitoringForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const data = new FormData(form);
-
-  // Verstuur Formspree data (optioneel, kan ook later)
-  fetch('https://formspree.io/f/xjgkngrq', {
-    method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json' }
-  });
-
-  // Stripe Checkout
-  stripe.redirectToCheckout({
-    lineItems: [{ price: "plink_1SmsAW03EnbOTtZXz7yxTCbs", quantity: 1 }],
-    mode: "subscription",
-    customerEmail: data.get('email'),
-    successUrl: window.location.origin + "/thank-you.html",
-    cancelUrl: window.location.href
-  }).then((result) => {
-    if (result.error) {
-      alert(result.error.message);
-    }
-  });
-});
-
-// Show Stripe success message
-if(window.location.search.includes('success=1')){
-  const successDiv = document.createElement('div');
-  successDiv.className="success-message";
-  successDiv.innerText="Your subscription has been activated! Thank you.";
-  document.querySelector('.hero').appendChild(successDiv);
-}
-</script>
-  <script>
-  const hamburger = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
-
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-  });
-
-  // Close menu when clicking a link
-  document.querySelectorAll('#mobileNav a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      mobileNav.classList.remove('active');
-    });
-  });
-</script>
+<script src="script.js"></script>
 </body>
 </html>
