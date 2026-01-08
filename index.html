@@ -3,60 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Black Talon Watch — AI‑Driven Website Intelligence</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://js.stripe.com/v3/"></script>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <title>Hamburger Menu Demo</title>
   <style>
-    :root {
-      --bg: #04060b;
-      --panel: #0b1020;
-      --accent: #3b82f6;
-      --accent-2: #6366f1;
-      --accent-soft: rgba(59,130,246,.15);
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --success: #22c55e;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
     body {
+      margin: 0;
       font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(900px 500px at 15% -10%, #0b1535 0%, transparent 60%),
-        radial-group(700px 400px at 85% 10%, #111a45 0%, transparent 55%),
-        linear-gradient(120deg, #04060b, #070b1a, #04060b);
-      background-size: 200% 200%;
-      animation: bgMove 18s ease infinite;
-      color: var(--text);
-      line-height: 1.65;
-    }
-    @keyframes bgMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      background: #04060b;
+      color: #fff;
     }
 
-    /* Header & Navigation */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 24px 64px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      backdrop-filter: blur(14px);
-      background: rgba(4,6,11,.65);
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(4, 6, 11, 0.85);
+      backdrop-filter: blur(10px);
     }
+
+    /* Desktop nav */
+    header nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      text-transform: uppercase;
+      position: relative;
+      opacity: 0.8;
+    }
+
+    header nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+
+    header nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
-      cursor: pointer;
       gap: 6px;
-      z-index: 1001;
+      cursor: pointer;
+      z-index: 101;
     }
+
     .hamburger span {
       width: 26px;
       height: 3px;
@@ -64,306 +70,29 @@
       border-radius: 2px;
       transition: all 0.3s ease;
     }
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-    }
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: .95rem;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      opacity: .8;
-      position: relative;
-    }
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      transition: width .3s ease;
-    }
-    nav a:hover { opacity: 1; }
-    nav a:hover::after { width: 100%; }
 
-    /* Mobile Navigation */
+    /* Mobile nav */
+    #mobileNav {
+      display: flex;
+      gap: 32px;
+    }
+
     @media (max-width: 768px) {
-      header {
-        padding: 16px 20px;
-        justify-content: center;
-      }
       .hamburger {
         display: flex;
-        position: absolute;
-        right: 20px;
-        top: 24px;
       }
-      nav {
+
+      header nav {
+        display: none;
+      }
+
+      #mobileNav {
         position: fixed;
         inset: 0;
-        background: rgba(5, 10, 25, 0.98);
+        background: rgba(5, 10, 25, 0.96);
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 48px;
+        gap: 36px;
         transform: translateY(-100%);
-        transition: transform 0.4s ease;
-        z-index: 1000;
-      }
-      nav.active {
-        transform: translateY(0);
-      }
-      nav a {
-        font-size: 1.8rem;
-      }
-      .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
-      .hamburger.active span:nth-child(2) { opacity: 0; }
-      .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-
-      /* Mobile adjustments */
-      .hero { padding: 120px 20px 80px; }
-      .hero-logo img { height: 180px; }
-      .hero h1 { font-size: clamp(2.5rem, 8vw, 3.5rem); }
-      .hero p { font-size: 1.1rem; }
-      .cta { width: 100%; justify-content: center; padding: 18px; font-size: 1.1rem; }
-      section.block { padding: 80px 20px; }
-      .block h2 { font-size: 2.2rem; }
-      .pricing { padding: 64px 24px; border-radius: 32px; }
-      .price { font-size: 3.5rem; }
-      .modal-content { max-width: 92%; padding: 32px; }
-      .contact-section { padding: 48px 20px; margin: 24px 16px; border-radius: 24px; }
-    }
-
-    /* Rest of styles (unchanged where possible) */
-    .hero { max-width: 1300px; margin: 0 auto; padding: 140px 32px 120px; text-align: center; }
-    .hero-logo { display: flex; justify-content: center; margin-bottom: 48px; }
-    .hero-logo img { height: 260px; max-width: 100%; filter: drop-shadow(0 0 55px rgba(99,102,241,.9)); }
-    .badge { display: inline-block; padding: 8px 18px; border-radius: 999px; background: linear-gradient(135deg, rgba(99,102,241,.2), rgba(59,130,246,.2)); color: #93c5fd; font-weight: 700; font-size: 13px; margin-bottom: 28px; text-transform: uppercase; }
-    .hero h1 { font-size: clamp(3.2rem, 6vw, 5rem); font-weight: 900; margin-bottom: 28px; letter-spacing: -0.04em; }
-    .hero p { max-width: 820px; margin: 0 auto 56px; font-size: 1.25rem; color: var(--muted); }
-    .cta { display: inline-flex; align-items: center; gap: 14px; padding: 20px 42px; background: linear-gradient(135deg, var(--accent-2), var(--accent)); border-radius: 16px; color: white; font-weight: 800; font-size: 1.1rem; text-decoration: none; box-shadow: 0 25px 80px rgba(59,130,246,.45); transition: transform .25s ease, box-shadow .25s ease; cursor: pointer; }
-    .cta:hover { transform: translateY(-3px); box-shadow: 0 40px 120px rgba(59,130,246,.6); }
-    .trust { margin-top: 28px; font-size: .95rem; color: var(--muted); }
-    section.block { max-width: 1300px; margin: 0 auto; padding: 120px 32px; opacity: 0; transform: translateY(60px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    section.block.reveal { opacity: 1; transform: translateY(0); }
-    .block h2 { font-size: 2.6rem; margin-bottom: 20px; letter-spacing: -0.03em; }
-    .block .intro { max-width: 760px; color: var(--muted); margin-bottom: 72px; font-size: 1.15rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-    .card { background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01)); border: 1px solid rgba(255,255,255,.08); border-radius: 24px; padding: 36px; backdrop-filter: blur(8px); }
-    .card h3 { margin-top: 0; font-size: 1.4rem; margin-bottom: 14px; }
-    .card p { color: var(--muted); margin: 0; }
-    .timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; margin-top: 80px; }
-    .step { padding: 28px; border-left: 3px solid var(--accent); background: rgba(255,255,255,.03); border-radius: 12px; }
-    .step strong { display: block; margin-bottom: 10px; font-size: 1.1rem; }
-    .pricing { text-align: center; background: linear-gradient(180deg, rgba(59,130,246,.12), rgba(59,130,246,.02)); border-radius: 40px; padding: 96px 48px; border: 1px solid rgba(59,130,246,.35); }
-    .price { font-size: 4.2rem; font-weight: 900; }
-    .price span { font-size: 1.2rem; color: var(--muted); }
-    ul { list-style: none; padding: 0; margin: 40px 0; }
-    ul li { margin: 16px 0; font-weight: 500; }
-    ul li::before { content: '✔'; color: var(--success); margin-right: 12px; }
-    footer { padding: 64px 24px; text-align: center; color: var(--muted); font-size: .9rem; }
-
-    /* Modal */
-    .modal { position: fixed; inset: 0; background: rgba(0,0,0,.75); display: none; align-items: center; justify-content: center; z-index: 999; }
-    .modal-content { background: linear-gradient(180deg, #0b1020, #060912); padding: 48px; border-radius: 24px; max-width: 520px; width: 100%; border: 1px solid rgba(255,255,255,.12); }
-    .modal-content h2 { margin-top: 0; }
-    .modal-content p { color: var(--muted); }
-    .modal-content input, .modal-content select { width: 100%; padding: 14px; border-radius: 12px; border: none; margin: 12px 0; background: rgba(255,255,255,.08); color: var(--text); }
-    .contact-section { background: linear-gradient(180deg, rgba(59,130,246,.12), rgba(59,130,246,.02)); padding: 64px 32px; border-radius: 32px; max-width: 900px; margin: 40px auto; border: 1px solid rgba(59,130,246,.3); text-align: left; }
-    .contact-section h2 { font-size: 2rem; margin-bottom: 24px; text-align: center; }
-    .contact-section form { display: flex; flex-direction: column; gap: 16px; }
-    .contact-section input, .contact-section textarea { padding: 14px; border-radius: 12px; border: none; font-size: 1rem; width: 100%; background: rgba(0,0,0,.15); color: var(--text); }
-    .contact-section textarea { resize: vertical; min-height: 120px; }
-    .contact-section button { padding: 16px; background: linear-gradient(135deg, var(--accent-2), var(--accent)); color: white; font-weight: 800; font-size: 1rem; border: none; border-radius: 16px; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease; }
-    .contact-section button:hover { transform: translateY(-3px); box-shadow: 0 25px 80px rgba(59,130,246,.45); }
-    .success-message { color: var(--success); font-weight: 700; text-align: center; margin-top: 16px; font-size: 1.05rem; }
-  </style>
-  <link rel="icon" type="image/png" href="Logo.png">
-</head>
-<body>
-
-<header>
-  <div class="hamburger" id="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <nav id="mobileNav">
-    <a href="#intelligence">Intelligence</a>
-    <a href="#how">How it works</a>
-    <a href="#pricing">Access</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-logo"><img src="Logo.png" alt="Black Talon Watch Logo"></div>
-  <div class="badge">AI‑Driven Website Intelligence</div>
-  <h1>Know your website<br>before it breaks.</h1>
-  <p>Black Talon Watch continuously monitors your website, detects anomalies, and alerts you before users notice issues.</p>
-  <a class="cta" onclick="openForm()">Request Access</a>
-  <div class="trust">Built for founders, agencies and mission‑critical websites.</div>
-</section>
-
-<!-- Metrics -->
-<section class="block" style="padding-top:40px;padding-bottom:40px;">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;text-align:center;">
-    <div><div style="font-size:2.8rem;font-weight:900;">99.99%</div><div style="color:var(--muted);">Detection accuracy</div></div>
-    <div><div style="font-size:2.8rem;font-weight:900;">&lt;60s</div><div style="color:var(--muted);">Average alert time</div></div>
-    <div><div style="font-size:2.8rem;font-weight:900;">24/7</div><div style="color:var(--muted);">Autonomous monitoring</div></div>
-    <div><div style="font-size:2.8rem;font-weight:900;">Zero</div><div style="color:var(--muted);">Noise alerts</div></div>
-  </div>
-</section>
-
-<!-- Intelligence -->
-<section class="block" id="intelligence">
-  <h2>Beyond uptime monitoring</h2>
-  <p class="intro">Traditional uptime tools react after failure. Black Talon Watch uses behavioral analysis and anomaly detection to identify weak signals, silent failures and degradation patterns before downtime becomes visible.</p>
-  <div class="grid">
-    <div class="card"><h3>Behavioral Baselines</h3><p>Your site’s normal response patterns are learned and continuously refined by AI.</p></div>
-    <div class="card"><h3>Anomaly Detection</h3><p>Subtle deviations in latency, response codes or availability are flagged instantly.</p></div>
-    <div class="card"><h3>Silent Failure Detection</h3><p>Catch partial outages, broken pages and degraded endpoints before users complain.</p></div>
-    <div class="card"><h3>Signal‑Only Alerts</h3><p>No dashboards. No noise. Only alerts that matter when action is required.</p></div>
-  </div>
-</section>
-
-<!-- How it works -->
-<section class="block" id="how">
-  <h2>How Black Talon Watch works</h2>
-  <p class="intro">Designed to disappear into your workflow while remaining relentlessly vigilant.</p>
-  <div class="timeline">
-    <div class="step"><strong>1. Connect</strong>Submit your website URL and alert email.</div>
-    <div class="step"><strong>2. Observe</strong>Our system establishes behavioral baselines within hours.</div>
-    <div class="step"><strong>3. Detect</strong>AI identifies anomalies, degradations and outages.</div>
-    <div class="step"><strong>4. Alert</strong>You receive concise, actionable notifications — instantly.</div>
-  </div>
-</section>
-
-<!-- Pricing -->
-<section class="block" id="pricing">
-  <div class="pricing">
-    <h2>Simple access. Serious protection.</h2>
-    <div class="price">€9 <span>/ month</span></div>
-    <p style="color:var(--muted);margin-bottom:20px;font-size:1rem;"> Start with a <strong>7-day free trial</strong>, then €9/month. Normal price €19.95/month. </p>
-    <ul>
-      <li>24/7 AI‑driven monitoring</li>
-      <li>Anomaly & silent failure detection</li>
-      <li>Instant email alerts</li>
-      <li>Flexible check intervals</li>
-      <li>Cancel anytime</li>
-    </ul>
-    <a class="cta" onclick="openForm()">Activate Monitoring</a>
-  </div>
-</section>
-
-<!-- Contact -->
-<section class="block" id="contact">
-  <div class="contact-section">
-    <h2>Contact Us</h2>
-    <p style="color:var(--muted); text-align:center; margin-bottom:32px;"> Have questions or need support? Send us a message and we’ll get back to you promptly. </p>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <div id="contactSuccess" class="success-message"></div>
-  </div>
-</section>
-
-<footer>
-  © 2026 Black Talon Watch. AI‑Driven Website Intelligence.
-</footer>
-
-<!-- Modal Form -->
-<div id="formModal" class="modal">
-  <div class="modal-content">
-    <h2>Start Monitoring</h2>
-    <p>Submit your details to activate AI-driven monitoring and start your 7-day free trial.</p>
-    <form id="monitoringForm">
-      <input required name="website" placeholder="Website URL">
-      <input required type="email" name="email" placeholder="Alert Email">
-      <select name="interval">
-        <option>Check every 5 minutes (Recommended)</option>
-        <option>Check every 10 minutes</option>
-        <option>Check every 30 minutes</option>
-      </select>
-      <button type="submit" class="cta">Start 7-Day Free Trial</button>
-    </form>
-    <p onclick="closeForm()" style="margin-top:20px;text-align:center;cursor:pointer;color:var(--muted)">Close</p>
-    <div id="monitoringSuccess" class="success-message"></div>
-  </div>
-</div>
-
-<script>
-  emailjs.init("aZ4T3xUnA92LWdsv2");
-
-  // Hamburger menu
-  const hamburger = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-  });
-  document.querySelectorAll('#mobileNav a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      mobileNav.classList.remove('active');
-    });
-  });
-
-  // Modal
-  function openForm() {
-    document.getElementById('formModal').style.display = 'flex';
-  }
-  function closeForm() {
-    document.getElementById('formModal').style.display = 'none';
-  }
-
-  // Contact form (EmailJS)
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    emailjs.sendForm('service_oymlaue', 'template_1875ef6', this)
-      .then(() => {
-        document.getElementById('contactSuccess').innerText = "Message sent successfully!";
-        this.reset();
-      })
-      .catch(() => {
-        document.getElementById('contactSuccess').innerText = "Something went wrong.";
-      });
-  });
-
-  // Stripe checkout
-  const stripe = Stripe("pk_live_REPLACE_WITH_YOUR_KEY");
-  document.getElementById('monitoringForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    stripe.redirectToCheckout({
-      lineItems: [{ price: "price_1SmsAW03EnbOTtZXz7yxTCbs", quantity: 1 }],
-      mode: "subscription",
-      customerEmail: data.get('email'),
-      successUrl: window.location.origin + "/thank-you.html",
-      cancelUrl: window.location.href
-    });
-  });
-
-  // Intersection Observer for reveal animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal');
-      }
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('section.block').forEach(section => observer.observe(section));
-</script>
-</body>
-</html>
+        transition: transform 0.4s e
