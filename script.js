@@ -50,18 +50,19 @@ document.getElementById("monitoringForm").addEventListener("submit", e => {
   });
 });
 
-// Hamburger
 const hamburger = document.getElementById("hamburger");
-const nav = document.getElementById("mobileNav");
+const menu = document.getElementById("menu");
 
 hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("active");
-  nav.classList.toggle("active");
+  menu.classList.toggle("active");
 });
 
-document.querySelectorAll("#mobileNav a").forEach(link => {
+// Sluit menu bij klik op link
+document.querySelectorAll(".menu a").forEach(link => {
   link.addEventListener("click", () => {
     hamburger.classList.remove("active");
-    nav.classList.remove("active");
+    menu.classList.remove("active");
+
   });
 });
