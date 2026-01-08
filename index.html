@@ -158,6 +158,71 @@ header nav a{
   opacity:.8;
   position:relative;
 }
+  header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 20px 32px;
+  backdrop-filter: blur(14px);
+  background: rgba(4,6,11,.7);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap; /* 🔑 allows wrapping on mobile */
+}
+
+header nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  opacity: 0.85;
+  position: relative;
+  white-space: nowrap;
+}
+
+header nav a:hover {
+  opacity: 1;
+}
+
+header nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width .3s ease;
+}
+
+header nav a:hover::after {
+  width: 100%;
+}
+
+/* =========================
+   MOBILE TWEAKS
+   ========================= */
+
+@media (max-width: 768px) {
+  header {
+    padding: 14px 16px;
+  }
+
+  header nav {
+    gap: 16px;
+  }
+
+  header nav a {
+    font-size: 0.8rem;
+  }
+}
 header nav a::after{
   content:'';
   position:absolute; left:0; bottom:-6px;
@@ -165,6 +230,7 @@ header nav a::after{
   background:linear-gradient(90deg,var(--accent),var(--accent-2));
   transition:width .3s ease;
 }
+  
 header nav a:hover{opacity:1;}
 header nav a:hover::after{width:100%;}
 
@@ -211,6 +277,7 @@ footer{padding:64px 24px;text-align:center;color:var(--muted);font-size:.9rem;}
 .contact-section button{padding:16px;background:linear-gradient(135deg,var(--accent-2),var(--accent));color:white;font-weight:800;font-size:1rem;border:none;border-radius:16px;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease;}
 .contact-section button:hover{transform:translateY(-3px); box-shadow:0 25px 80px rgba(59,130,246,.45);}
 .success-message{color:var(--success);font-weight:700;text-align:center;margin-top:16px;font-size:1.05rem;}
+
 </style>
 <link rel="icon" type="image/png" href="Logo.png">
 </head>
@@ -361,7 +428,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
 // Stripe
 const stripe = Stripe("pk_live_REPLACE_WITH_YOUR_KEY"); // je eigen key invullen
 
-ddocument.getElementById('monitoringForm').addEventListener('submit', async (e) => {
+document.getElementById('monitoringForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const form = e.target;
   const data = new FormData(form);
