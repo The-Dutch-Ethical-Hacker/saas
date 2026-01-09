@@ -404,8 +404,14 @@ Secure checkout via Stripe · Cancel anytime · €0 today
 </div>
 
 <script>
-emailjs.init("aZ4T3xUnA92LWdsv2"); // Public key EmailJS
+/* =========================
+   EmailJS init
+   ========================= */
+emailjs.init("aZ4T3xUnA92LWdsv2");
 
+/* =========================
+   Scroll reveal
+   ========================= */
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){
@@ -415,81 +421,67 @@ const observer = new IntersectionObserver((entries)=>{
   });
 },{threshold:0.15});
 
-document.querySelectorAll('section.block').forEach(section => observer.observe(section));
+document.querySelectorAll('section.block')
+  .forEach(section => observer.observe(section));
 
-function openForm(){document.getElementById('formModal').style.display='flex';}
-function closeForm(){document.getElementById('formModal').style.display='none';}
+/* =========================
+   Modal controls
+   ========================= */
+function openForm(){
+  document.getElementById('formModal').style.display = 'flex';
+}
+function closeForm(){
+  document.getElementById('formModal').style.display = 'none';
+}
 
-// Contact Form via EmailJS
+/* =========================
+   Contact form (EmailJS)
+   ========================= */
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
-  emailjs.sendForm('service_oymlaue','template_1875ef6',this)
-  .then(response=>{
-    document.getElementById('contactSuccess').innerText="Message sent successfully!";
+
+  emailjs.sendForm(
+    'service_oymlaue',
+    'template_1875ef6',
+    this
+  ).then(() => {
+    document.getElementById('contactSuccess').innerText =
+      "Message sent successfully!";
     this.reset();
-  }).catch(err=>{
-    document.getElementById('contactSuccess').innerText="Oops, something went wrong.";
+  }).catch(() => {
+    document.getElementById('contactSuccess').innerText =
+      "Oops, something went wrong.";
   });
 });
 
-const stripe = Stripe("pk_live_51RTnxK03EnbOTtZX9838lrnwdVjOlWOdd5tiZ1aVP1ezRjMlXW1LkqjTo2PH7BfBH5y9aKvWwNZx18BnVQCfhJ8b00Pen5vNty");
-
-document.getElementById('monitoringForm').addEventListener('submit', (e) => {
+/* =========================
+   MONITORING → FORM → STRIPE
+   ========================= */
+document.getElementById('monitoringForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const form = e.target;
   const data = new FormData(form);
 
-  // 1️⃣ Formspree (jij krijgt de aanvraag)
-  fetch('https://formspree.io/f/xjgkngrq', {
-    method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json' }
-  });
+  /* 1️⃣ Opslaan in Formspree */
+  try {
+    await fetch('https://formspree.io/f/xjgkngrq', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+  } catch (err) {
+    console.error("Formspree error", err);
+  }
 
-  // 2️⃣ Stripe Checkout (7 dagen trial zit al in Stripe)
-  stripe.redirectToCheckout({
-    lineItems: [{
-      price: "price_1SmqxS03EnbOTtZX0FWwHePt",
-      quantity: 1
-    }],
-    mode: "subscription",
-    customerEmail: data.get('email'),
-    successUrl: window.location.origin + "/thank-you.html",
-    cancelUrl: window.location.href
-  }).then(result => {
-    if (result.error) {
-      alert(result.error.message);
-    }
-  });
-
-  // 2️⃣ Redirect naar Stripe Checkout
-  stripe.redirectToCheckout({
-    lineItems: [{
-      price: "price_1SmsAW03EnbOTtZXz7yxTCbs", // Jouw Stripe price ID
-      quantity: 1
-    }],
-    mode: "subscription",
-    customerEmail: data.get('email'),
-    subscriptionData: {
-      trial_period_days: 7 // 7 dagen gratis trial
-    },
-    successUrl: window.location.origin + "/thank-you.html",
-    cancelUrl: window.location.href
-  }).then((result) => {
-    if(result.error){
-      alert(result.error.message);
-    }
-  });
+  /* 2️⃣ DIRECT naar Stripe Checkout
+     - 7-day trial zit in Stripe
+     - €9 / maand
+     - Cancel anytime
+  */
+  window.location.href =
+    "https://buy.stripe.com/plink_1SmsAW03EnbOTtZXz7yxTCbs";
 });
-
-// Optioneel: toon succesmelding als redirect URL ?success=1 bevat
-if(window.location.search.includes('success=1')){
-  const successDiv = document.createElement('div');
-  successDiv.className="success-message";
-  successDiv.innerText="Your subscription has been activated! Thank you.";
-  document.querySelector('.hero').appendChild(successDiv);
-}
 </script>
 </body>
 </html>
