@@ -429,22 +429,34 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
   });
 });
 
-// Stripe
 const stripe = Stripe("pk_live_51RTnxK03EnbOTtZX9838lrnwdVjOlWOdd5tiZ1aVP1ezRjMlXW1LkqjTo2PH7BfBH5y9aKvWwNZx18BnVQCfhJ8b00Pen5vNty");
 
-document.getElementById('monitoringForm').addEventListener('submit', async (e) => {
+document.getElementById('monitoringForm').addEventListener('submit', (e) => {
   e.preventDefault();
+
   const form = e.target;
   const data = new FormData(form);
 
-  // 1️⃣ Verstuur FormSpree data
+  // 1️⃣ Formspree (jij krijgt de aanvraag)
   fetch('https://formspree.io/f/xjgkngrq', {
     method: 'POST',
     body: data,
     headers: { 'Accept': 'application/json' }
-  }).then(response => {
-    if(response.ok){
-      console.log("FormSpree: aanvraag ontvangen");
+  });
+
+  // 2️⃣ Stripe Checkout (7 dagen trial zit al in Stripe)
+  stripe.redirectToCheckout({
+    lineItems: [{
+      price: "price_1SmqxS03EnbOTtZX0FWwHePt",
+      quantity: 1
+    }],
+    mode: "subscription",
+    customerEmail: data.get('email'),
+    successUrl: window.location.origin + "/thank-you.html",
+    cancelUrl: window.location.href
+  }).then(result => {
+    if (result.error) {
+      alert(result.error.message);
     }
   });
 
