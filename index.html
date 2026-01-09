@@ -373,13 +373,36 @@ footer{padding:64px 24px;text-align:center;color:var(--muted);font-size:.9rem;}
 </section>
 
 <footer>
-<a href="https://billing.stripe.com/p/login/">
-  Manage subscription
-</a>
+<a class="cta" onclick="openManage()">Manage subscription</a>
   <br>
   © 2026 Black Talon Watch. AI‑Driven Website Intelligence.
 </footer>
+<div id="manageModal" class="modal">
+  <div class="modal-content">
+    <h2>Manage your subscription</h2>
+    <p>Please choose how you want to manage your subscription.</p>
 
+    <form id="manageForm">
+      <select name="action" required>
+        <option value="">Select an option</option>
+        <option value="Cancel subscription">Cancel subscription</option>
+        <option value="Pause subscription">Pause subscription</option>
+      </select>
+
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="text" name="website" placeholder="Website URL" required>
+      <input type="email" name="email" placeholder="Your email address" required>
+
+      <button type="submit" class="cta">Submit request</button>
+    </form>
+
+    <p onclick="closeManage()" style="margin-top:20px;text-align:center;cursor:pointer;color:var(--muted)">
+      Close
+    </p>
+
+    <div id="manageSuccess" class="success-message"></div>
+  </div>
+</div>
 <!-- Modal Form -->
 <div id="formModal" class="modal">
   <div class="modal-content">
@@ -490,6 +513,32 @@ document.getElementById('monitoringForm').addEventListener('submit', async (e) =
   gtag('js', new Date());
 
   gtag('config', 'G-D7H1EP2S52');
+</script>
+ <script>
+  function openManage(){
+  document.getElementById('manageModal').style.display = 'flex';
+}
+function closeManage(){
+  document.getElementById('manageModal').style.display = 'none';
+}
+
+// Manage subscription form
+document.getElementById('manageForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  emailjs.sendForm(
+    'service_oymlaue',
+    'template_i7wz87p',
+    this
+  ).then(() => {
+    document.getElementById('manageSuccess').innerText =
+      "Your request has been received. A confirmation email has been sent.";
+    this.reset();
+  }).catch(() => {
+    document.getElementById('manageSuccess').innerText =
+      "Something went wrong. Please try again.";
+  });
+});
 </script>
 </body>
 </html>
